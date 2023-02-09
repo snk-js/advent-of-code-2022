@@ -1,15 +1,14 @@
 import { readInput } from '../utils/readInput'
 import { feed } from '../utils/feed'
-import { split_new_lines } from '../utils/format'
-
 
 const solution = (input: string) => {
-  console.log('ok')
-  console.log({ input })
+  return Math.max(...input.split(/\n\n/)
+    .map((w) => w.replace(/\n(?=.*)/g, ','))
+    .map((c: string) => c.split(',')
+      .reduce((acc, calories: string) => acc + Number(calories), 0)))
 }
 
-
-export const getElfCarryingMostCalories = feed(readInput('day-1', [split_new_lines]), solution)
+export const getElfCarryingMostCalories = feed(readInput('day-1'), solution)
 
 
 
