@@ -23,8 +23,8 @@ const winner = {
 
 type AllPossibleChoicesFromKeys = keyof typeof winner
 type AllPossibleChoicesFromValues = typeof winner[AllPossibleChoicesFromKeys]
-type Losers<T extends keyof Choices> = Record<Exclude<AllPossibleChoicesFromValues, T>, AllPossibleChoicesFromKeys>;
-const reducerObj = {} as Losers<keyof Choices>;
+type Losers = Record<AllPossibleChoicesFromValues, AllPossibleChoicesFromKeys>;
+const reducerObj = {} as Losers;
 
 const losers = Object.entries(winner).reduce((acc, [key, value]) => {
     acc[value as AllPossibleChoicesFromValues] = key as AllPossibleChoicesFromKeys;
