@@ -1,4 +1,4 @@
-import { getPrioritySumOfAllFailedRucksackItem } from './day-3/index'
+import { getPrioritySumOfAllFailedRucksackItem, getPrioritySumOfAllGroupsBadges } from './day-3/index'
 import { countPoints, countPointsSecondStrategy } from './day-2/index'
 import { getElfCarryingMostCalories, getTopThreeElfCarryingMostCalories } from './day-1/index'
 
@@ -15,6 +15,7 @@ describe('test all solution', () => {
 
     it('should test day 3 solutions', () => {
         expect(getPrioritySumOfAllFailedRucksackItem()).toBe(7821)
+        expect(getPrioritySumOfAllGroupsBadges()).toBe(2752)
     })
 
 })
