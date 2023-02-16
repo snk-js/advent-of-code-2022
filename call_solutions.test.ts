@@ -1,4 +1,4 @@
-import { countOverlappedSections } from './day-4/index'
+import { countFullyOverlappedSections, countOverlapsSections } from './day-4/index'
 import { getPrioritySumOfAllFailedRucksackItem, getPrioritySumOfAllGroupsBadges } from './day-3/index'
 import { countPoints, countPointsSecondStrategy } from './day-2/index'
 import { getElfCarryingMostCalories, getTopThreeElfCarryingMostCalories } from './day-1/index'
@@ -19,8 +19,9 @@ describe('test all solution', () => {
         expect(getPrioritySumOfAllGroupsBadges()).toBe(2752)
     })
 
-    it('should test day 4 solutions', () => {
-        expect(countOverlappedSections()).toBe(534);
+    it('should test day 4 solutio1ns', () => {
+        expect(countFullyOverlappedSections()).toBe(534);
+        expect(countOverlapsSections()).toBe(841);
     })
 
 })

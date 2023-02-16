@@ -18,25 +18,33 @@ const splitSection = (input: SectionAssigment[]) => input.map(section => section
 const getIntervalIntegers = (line: InputLine): IntegerIntervals =>
     splitSection(splitSectionIntervals(line as InputLine) as SectionAssigment[])
 
-const compareIntervals = (integerIntervals: IntegerIntervals): boolean => {
+const compareIntervals = (integerIntervals: IntegerIntervals, fullOverlap: boolean): boolean => {
     const [from1, to1, from2, to2] = integerIntervals
-    return (from1 >= from2) && (to1 <= to2) ||
-        (from2 >= from1) && (to2 <= to1)
+    const fullOverlapAssertion = ((from1 >= from2) && (to1 <= to2) ||
+        (from2 >= from1) && (to2 <= to1))
+    const weakOverlapAssertion = ((from2 <= to1) && (to2 >= to1) ||
+        (to2 >= from1) && (from2 <= from1))
+
+    if (fullOverlap) {
+        return fullOverlapAssertion
+    } else {
+        return (fullOverlapAssertion || weakOverlapAssertion)
+    }
 }
 
-const isPairOverlapped = (input: InputLine): boolean =>
-    compareIntervals(getIntervalIntegers(input as InputLine))
+const isPairOverlapped = (input: InputLine, fullyOverlap: boolean): boolean =>
+    compareIntervals(getIntervalIntegers(input as InputLine), fullyOverlap)
 
-const getSolution = (lines: InputLine[]) => {
+const getSolution = (lines: InputLine[], fullyOverlap: boolean) => {
     let result = 0
     while (lines.length) {
-        result += +isPairOverlapped(lines.pop() as InputLine)
+        result += +isPairOverlapped(lines.pop() as InputLine, fullyOverlap)
     }
     return result
 }
 
-const solution_1 = (input: string) => getSolution(format(input));
-// const solution_2 = (input: string) => getSolution(input)
+const solution_1 = (input: string) => getSolution(format(input), true);
+const solution_2 = (input: string) => getSolution(format(input), false)
 
-export const countOverlappedSections = feed(readInput('day-4'), solution_1)
-// export const getPrioritySumOfAllGroupsBadges = feed(readInput('day-3'), solution_2)
+export const countFullyOverlappedSections = feed(readInput('day-4'), solution_1)
+export const countOverlapsSections = feed(readInput('day-4'), solution_2)
