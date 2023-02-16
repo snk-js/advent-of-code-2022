@@ -20,7 +20,8 @@ const lettersPriority = characters
 const midpoint = (input: Letters) => Math.floor(input.length / 2);
 
 
-const divide = (input: Letters): LettersSplited => [input.slice(0, midpoint(input)) as Letters, input.slice(midpoint(input)) as Letters];
+const divide = (input: Letters): LettersSplited =>
+    [input.slice(0, midpoint(input)) as Letters, input.slice(midpoint(input)) as Letters];
 
 
 // this is a good tip AI gave me
