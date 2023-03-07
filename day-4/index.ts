@@ -7,8 +7,6 @@ type IntegerIntervals = [number, number, number, number]
 type OneOrTwoDigits = `${1 | 2}${string}`;
 type SectionAssigment = `${OneOrTwoDigits}-${OneOrTwoDigits}`
 type InputLine = `${SectionAssigment},${SectionAssigment}`;
-// Matches strings with 1 or 2 digits
-// Matches strings with two comma-separated oneOrTwoDigits
 
 const splitSectionIntervals = (input: InputLine) => input.split(',') as SectionAssigment[]
 
