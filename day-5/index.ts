@@ -39,32 +39,31 @@ const createStructuredInput = ([crates, moves]: string[]): [Stacks, number[][]] 
     return [formatedCrates, formatedMoves]
 }
 
-const processMoves = (n: number, from: Crate[], to: Crate[]): void => {
-    if (n === 0) return
-    to.push(from.pop() || '    ')
-    return processMoves(n - 1, from, to)
-}
 
 type Stacks = Crate[][]
 
 
-const processAllMoves = (crates: Crate[][], moves: number[][]): Stacks => {
+const processAllMoves = (crates: Crate[][], moves: number[][], revertCrateMove: boolean): Stacks => {
     if (!moves.length) return crates
     const [n, from, to] = moves.shift() || []
     const fromStack = crates[from]
     const toStack = crates[to]
-    processMoves(n, fromStack, toStack)
-    return processAllMoves(crates, moves)
+    const slice = fromStack.splice(fromStack.length - n, n)
+    !revertCrateMove && slice.reverse();
+    slice.map((fromCrate) => {
+        toStack.push(fromCrate)
+    })
+    return processAllMoves(crates, moves, revertCrateMove)
 }
 
 
-const getSolution = (input: string[]) => {
+const getSolution = (input: string[], revertCrateMove: boolean) => {
     const [crates, moves] = createStructuredInput(input)
-    return processAllMoves(crates, moves).map(stack => (stack.pop())).toString().match(/[a-zA-Z]/g)?.join('')
+    return processAllMoves(crates, moves, revertCrateMove).map(stack => (stack.pop())).toString().match(/[a-zA-Z]/g)?.join('')
 }
 
-const solution_1 = (input: string) => getSolution(format(input));
-// const solution_2 = (input: string) => getSolution(format(input))
+const solution_1 = (input: string) => getSolution(format(input), false);
+const solution_2 = (input: string) => getSolution(format(input), true);
 
-export const cratedAfterAllMoved = feed(readInput('day-5'), solution_1)
-// export const countOverlapsSections = feed(readInput('day-5'), solution_2)
+export const cratesAfterAllMoved = feed(readInput('day-5'), solution_1)
+export const cratesAfterAllReversedMoved = feed(readInput('day-5'), solution_2)

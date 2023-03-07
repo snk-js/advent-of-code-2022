@@ -1,4 +1,4 @@
-import { cratedAfterAllMoved } from './day-5/index'
+import { cratesAfterAllMoved, cratesAfterAllReversedMoved } from './day-5/index'
 import { countFullyOverlappedSections, countOverlapsSections } from './day-4/index'
 import { getPrioritySumOfAllFailedRucksackItem, getPrioritySumOfAllGroupsBadges } from './day-3/index'
 import { countPoints, countPointsSecondStrategy } from './day-2/index'
@@ -25,7 +25,8 @@ describe('test all solution', () => {
         expect(countOverlapsSections()).toBe(841);
     })
     it('should test day 5 solutio1ns', () => {
-        expect(cratedAfterAllMoved()).toBe('SHMSDGZVC');
+        expect(cratesAfterAllMoved()).toBe('SHMSDGZVC');
+        expect(cratesAfterAllReversedMoved()).toBe('VRZGHDFBQ');
     })
 
 })
